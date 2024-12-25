@@ -9,7 +9,7 @@ namespace Exercise2_Stack
 {
     public class Stack
     {
-        private Node? pTop; // Cho phép null để biểu diễn trạng thái rỗng của ngăn xếp.
+        private Node? pTop; 
 
         public Stack()
         {
@@ -41,7 +41,7 @@ namespace Exercise2_Stack
 
             Node tmp = pTop!;
             pTop = pTop!.PNext;
-            tmp.PNext = null; // Ngắt liên kết để tránh tham chiếu không mong muốn.
+            tmp.PNext = null; 
             return tmp;
         }
 
@@ -190,30 +190,30 @@ namespace Exercise2_Stack
 
 
         // Tính toán biểu thức Postfix
-        public int Evaluate(string postfixExpression)
+        public double Evaluate(string postfixExpression)
         {
             string[] tokens = postfixExpression.Split(' ');
 
             foreach (string token in tokens)
             {
-                if (int.TryParse(token, out int number))  // Nếu là toán hạng
+                if (double.TryParse(token, out double number))  // Nếu là toán hạng
                 {
                     stack.Push(new Node(number.ToString()));
                 }
                 else  // Nếu là toán tử
                 {
-                    int operand2 = int.Parse(stack.Pop().Info);
-                    int operand1 = int.Parse(stack.Pop().Info);
+                    double operand2 = double.Parse(stack.Pop().Info);
+                    double operand1 = double.Parse(stack.Pop().Info);
 
-                    int result = PerformOperation(token, operand1, operand2);
+                    double result = PerformOperation(token, operand1, operand2);
                     stack.Push(new Node(result.ToString())); // Đẩy kết quả vào ngăn xếp
                 }
             }
 
-            return int.Parse(stack.Pop().Info); // Kết quả cuối cùng nằm ở đỉnh ngăn xếp
+            return double.Parse(stack.Pop().Info); // Kết quả cuối cùng nằm ở đỉnh ngăn xếp
         }
 
-        private int PerformOperation(string op, int operand1, int operand2)
+        private double PerformOperation(string op, double operand1, double operand2)
         {
             return op switch
             {
@@ -221,7 +221,7 @@ namespace Exercise2_Stack
                 "-" => operand1 - operand2,
                 "*" => operand1 * operand2,
                 "/" => operand2 == 0 ? throw new DivideByZeroException("Cannot divide by zero.") : operand1 / operand2,
-                "^" => (int)Math.Pow(operand1, operand2),
+                "^" => (double)Math.Pow(operand1, operand2),
                 _ => throw new InvalidOperationException($"Invalid operator: {op}")
             };
         }

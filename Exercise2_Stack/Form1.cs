@@ -42,7 +42,7 @@
                 txtPostfix.Text = postfixExpression; // Hiển thị biểu thức Postfix
 
                 // Tính toán biểu thức Postfix
-                int result = evaluator.Evaluate(postfixExpression);
+                double result = evaluator.Evaluate(postfixExpression);
                 txtResult.Text = result.ToString(); // Hiển thị kết quả
             }
             catch (Exception ex)
